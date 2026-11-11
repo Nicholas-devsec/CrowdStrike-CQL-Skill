@@ -1,10 +1,23 @@
 # Field Maps
 
-This file is the schema authority for confirmed event fields included in this packaged skill.
+This file is the primary guide for hunting with the 67 packaged events: confirmed fields, pivots, join keys, and notes.
 
-Use these field maps before generating queries. If a field is not listed for the target event type, do not assume it exists.
+Use these field maps before generating queries.
 
-For exhaustive whole-dump coverage across every extracted event, also use [event-field-catalog.md](event-field-catalog.md).
+This file explains how to hunt with each event: useful pivots, join keys, and notes. It does not list every field. For the complete list of confirmed fields per event, use [event-field-catalog.md](event-field-catalog.md). If a field is missing here, check the catalog before assuming it does not exist.
+
+## Contents
+
+- [How To Use This File](#how-to-use-this-file)
+- [Common Cross-Event Anchors](#common-cross-event-anchors)
+- [Raw Event Coverage](#raw-event-coverage)
+- [Core Falcon EDR Events](#core-falcon-edr-events): `ProcessRollup2`, `SyntheticProcessRollup2`, `NetworkConnectIP4`, `DnsRequest`, `UserLogon`, `UserLogonFailed2`, `ProcessAncestryInformation`
+- [Persistence and Configuration Events](#persistence-and-configuration-events): `RegGenericValueUpdate`, `RegCrowdstrikeValueUpdate`, `RegSystemConfigValueUpdate`, `AsepValueUpdate`, `AsepKeyUpdate`, `ScheduledTaskRegistered`, `ScheduledTaskDeleted`, `CreateService`, `ServiceStopped`, `KernelServiceStarted`
+- [File and Content Events](#file-and-content-events): `MsiFileWritten`, `NewExecutableWritten`, `NewExecutableRenamed`, `ExecutableDeleted`, `RegistryHiveFileWritten`, `MotwWritten`, `LFODownloadConfirmation`, `GzipFileWritten`, `ZipFileWritte`, `SevenZipFileWritten`, `JavaClassFileWritten`, `PythonFileWritten`, `WebScriptFileWritten`, `NewScriptWritten`, `ScriptFileWrittenInfo`, `ScriptControlDetectInfo`, `MSDocxFileWritten`, `SuspiciousPeFileWritten`, `FileWrittenWithEntropyHigh`
+- [Network and Share Events](#network-and-share-events): `NetworkReceiveAcceptIP4`, `SuspiciousDnsRequest`, `SmbClientShareOpenedEtw`, `SmbServerShareOpenedEtw`, `DirectoryTraversalOverSMB`, `NetShareDelete`, `FirewallSetRule`, `FirewallDeleteRule`
+- [Injection, Handle, and Advanced Detection Events](#injection-handle-and-advanced-detection-events): `InjectedThread`, `ProcessInjection`, `DllInjection`, `BrowserInjectedThread`, `ReflectiveDotnetModuleLoad`, `SuspiciousPrivilegedProcessHandle`, `RegistryOperationDetectInfo`, `SuspiciousRegAsepUpdate`, `SAMHashDumpFromUnsignedModule`
+- [Operational and Miscellaneous Events](#operational-and-miscellaneous-events): `SensorHeartbeat`, `DriverLoad`, `AgentConnect`, `BITSJobCreated`, `DetectionExcluded`, `FileDeleteInfo`, `FileOpenInfo`, `VolumeSnapshotDeleted`, `ScreenshotTakenEtw`, `SensitiveWmiQuery`, `PeVersionInfo`, `WmiProviderRegistrationEtw`, `RansomwareOpenFile`, `RansomwareFileAccessPattern`
+- [Environment Notes](#environment-notes)
 
 ## How To Use This File
 

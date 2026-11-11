@@ -4,7 +4,7 @@ These patterns are curated Falcon EDR examples organized for LLM use.
 
 Use these patterns as examples only when the requested datasource, event type, and fields match. Do not blindly reuse them across unrelated repositories.
 
-Some patterns below reference event types that are not part of the current packaged 67-event schema subset. Those patterns must be confirmed against the local environment before use.
+Three patterns use events or data outside the packaged 67-event set. Each is tagged `Schema status: Validated example` below. They are vetted queries to reuse as written, not schema to build new queries from. When you reuse one, say that it uses events outside the packaged set and that the events and fields should be confirmed in the target environment.
 
 ## Pattern Template
 
@@ -133,6 +133,7 @@ Some patterns below reference event types that are not part of the current packa
 
 - Purpose: Correlate Windows driver load events with certificate metadata from `Event_ModuleSummaryInfoEvent`.
 - Data source: Mixed Falcon EDR plus `#repo=detections`
+- Schema status: Validated example. Uses `Event_ModuleSummaryInfoEvent` from `#repo=detections`, which is outside the packaged 67-event set.
 - Required fields: `#event_simpleName`, `event_platform`, `SHA256HashData`, `FilePath`, `FileName`, `OriginalFilename`, `SubjectCN`, `IssuerCN`, `ExternalApiType`
 - Optional parameters: None
 - False positive considerations: Unsigned or oddly signed drivers are not always malicious; hardware vendors vary.
@@ -274,6 +275,7 @@ event_platform=Win #event_simpleName=ProcessRollup2 FileName=/(whoami|ping|net1?
 
 - Purpose: Detect `mshta.exe` execution and extract the referenced HTA path, folder, and filename.
 - Data source: Falcon EDR `ProcessRollup2` and `ProcessBlocked`
+- Schema status: Validated example. Uses `ProcessBlocked`, which is outside the packaged 67-event set.
 - Required fields: `#event_simpleName`, `event_platform`, `ImageFileName`, `CommandLine`
 - Optional parameters: None
 - False positive considerations: Some legacy applications and admins may legitimately use `mshta.exe`.
@@ -371,6 +373,7 @@ in(#event_simpleName, values=["ProcessRollup2","ProcessBlocked"])
 
 - Purpose: Trace processes that write both DLL and EXE files to the same path, show masquerading indicators, and follow the chain into side-loading behavior.
 - Data source: Falcon EDR `PeFileWritten`, `ProcessRollup2`, `ClassifiedModuleLoad`, `MotwWritten`
+- Schema status: Validated example. Uses `PeFileWritten` and `ClassifiedModuleLoad`, which are outside the packaged 67-event set.
 - Required fields: Extensive. Confirm all file-write, process lineage, hash, MOTW, and module load fields before reuse.
 - Optional parameters: None
 - False positive considerations: This is powerful but environment-sensitive; only reuse when the target environment exposes the same event types and field names.

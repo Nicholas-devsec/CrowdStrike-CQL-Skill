@@ -1,7 +1,7 @@
 # Event Field Catalog
 
 This file is a systematic catalog of every packaged `#event_simpleName` section included with this skill.
-Use it as the exhaustive schema catalog. For higher-signal hunt guidance, joins, and interpretation notes, use [field-maps.md](field-maps.md).
+This is the complete list of confirmed fields for each event, and the final check on whether a field exists. If a field is not listed under an event here, do not use it for that event. For pivots, joins, and hunt notes, use [field-maps.md](field-maps.md).
 
 Total event types extracted: **67**.
 

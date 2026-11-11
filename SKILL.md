@@ -47,7 +47,7 @@ Follow this order every time:
 Use references deliberately instead of relying on memory:
 
 - Use `references/field-maps.md` first when you know the event type and want safer pivots, joins, ECS aliases, and hunt notes.
-- Use `references/event-field-catalog.md` when you need exhaustive raw field coverage for any extracted `#event_simpleName`.
+- Use `references/event-field-catalog.md` to confirm whether a field exists for an event. It lists every confirmed field and is the final check; `field-maps.md` is a curated subset and can omit real fields.
 - Use `references/mitre-mappings.md` when the user gives a TTP, ATT&CK technique, behavior narrative, or raw telemetry that needs ATT&CK interpretation.
 - Use `references/query-patterns.md` when the user wants a proven hunting pattern or a detection-style starting point.
 
@@ -85,6 +85,8 @@ Use this fallback order:
 ### Direct Match
 
 Use the requested `#event_simpleName` when it exists in `references/field-maps.md` or `references/event-field-catalog.md` and the needed fields are confirmed.
+
+The one exception is a pattern in `references/query-patterns.md` marked `Schema status: Validated example`. See What To Avoid for how to reuse it.
 
 ### High-Confidence Alternative
 
@@ -200,7 +202,7 @@ ComputerName=?ComputerName
 ### Build From Confirmed Fields
 
 - Prefer fields confirmed in `references/field-maps.md`.
-- If a field is not in `field-maps.md`, check `references/event-field-catalog.md`.
+- If a field is not in `field-maps.md`, check `references/event-field-catalog.md`. A field listed there is confirmed for that event.
 - If the field is absent from both, do not invent it.
 - If a query pattern conflicts with the confirmed field maps, trust the field maps and state the assumption.
 - If the requested event is absent but a high-confidence mapped alternative exists, use the alternative and state the substitution plainly.
@@ -325,7 +327,8 @@ Only use this pattern when the user explicitly wants aggregation and the target 
 ## What To Avoid
 
 - Do not output SQL, Splunk SPL, KQL, Sigma, YARA, or pseudo-code when the user asked for CQL.
-- Do not reference event types outside the packaged mapped event set unless the user explicitly supplies new confirmed schema.
+- Do not write new queries against event types outside the packaged mapped event set unless the user explicitly supplies new confirmed schema.
+- Do not extend or adapt a pattern marked `Schema status: Validated example` with events or fields outside the packaged set. Reuse it as written, and say it uses events outside the packaged set and should be confirmed in the target environment.
 - Do not use undocumented functions just because they sound plausible.
 - Do not mix parser-time behavior with search-time behavior unless you are sure it applies.
 - Do not assume a join key exists.
@@ -356,7 +359,7 @@ Expand these sections over time instead of bloating the main workflow:
 - `references/field-maps.md`
   Add confirmed field maps by datasource, parser, and event type.
 - `references/event-field-catalog.md`
-  Keep this as the exhaustive packaged event and field catalog for this skill.
+  Keep this as the complete list of confirmed fields per packaged event.
 - `references/query-patterns.md`
   Add vetted detection and hunting patterns with a short note on when to use each.
 
@@ -369,7 +372,7 @@ Use these files only as needed:
 - [references/field-maps.md](references/field-maps.md)
   Use this as the primary schema-and-enrichment guide.
 - [references/event-field-catalog.md](references/event-field-catalog.md)
-  Use this for exhaustive field coverage across all packaged `#event_simpleName` values.
+  Use this to confirm whether a field exists for a packaged `#event_simpleName`.
 - [references/query-patterns.md](references/query-patterns.md)
   Use this for vetted Falcon EDR hunting and detection examples after validating the schema.
 - [references/mitre-mappings.md](references/mitre-mappings.md)

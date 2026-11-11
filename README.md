@@ -28,8 +28,8 @@ Including an event name, `aid`, hostname, IP, domain, hash, or command line give
 | File | Purpose |
 | --- | --- |
 | [SKILL.md](SKILL.md) | Workflow, guardrails, fallback rules |
-| [references/field-maps.md](references/field-maps.md) | Per-event fields, pivots, join hints |
-| [references/event-field-catalog.md](references/event-field-catalog.md) | Full field inventory for each event |
+| [references/field-maps.md](references/field-maps.md) | How to hunt with each event: pivots, join hints, notes |
+| [references/event-field-catalog.md](references/event-field-catalog.md) | Complete confirmed field list per event |
 | [references/mitre-mappings.md](references/mitre-mappings.md) | ATT&CK techniques mapped to events |
 | [references/query-patterns.md](references/query-patterns.md) | Example queries |
 
